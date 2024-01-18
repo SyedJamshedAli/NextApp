@@ -1,4 +1,3 @@
-
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
@@ -10,7 +9,7 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
-import { unstable_noStore as noStore} from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchRevenue() {
   noStore();
@@ -21,8 +20,8 @@ export async function fetchRevenue() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-//     console.log('Fetching revenue data...');
-  //   await new Promise((resolve) => setTimeout(resolve, 3000));
+    //     console.log('Fetching revenue data...');
+    //   await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
@@ -59,7 +58,6 @@ export async function fetchLatestInvoices() {
 export async function fetchCardData() {
   noStore();
   try {
-    
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
     // how to initialize multiple queries in parallel with JS.
@@ -93,7 +91,7 @@ export async function fetchCardData() {
   }
 }
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 2;
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
@@ -122,7 +120,6 @@ export async function fetchFilteredInvoices(
       ORDER BY invoices.date DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
-
     return invoices.rows;
   } catch (error) {
     console.error('Database Error:', error);
