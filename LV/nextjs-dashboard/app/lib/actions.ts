@@ -13,6 +13,25 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+
+export async function updateInvoice(id:string,formData:FormData)
+{
+  console.log(id)
+  console.log(formData); //Data
+  
+  const rawFormData = Object.fromEntries(formData.entries());
+  const { customerId, amount, status } = UpdateInvoice.parse(rawFormData);
+  const amtInCents=amount*100;
+  await sql`
+    UPDATE invoices
+    SET customer_id = ${customerId}, amount = ${amtInCents}, status = ${status}
+    WHERE id = ${id}
+  `;
+  revalidatePath('/dashboard/invoices');
+  redirect('/dashboard/invoices');
+}
+
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(formData: FormData) {
