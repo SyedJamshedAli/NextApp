@@ -81,6 +81,13 @@ export type CustomerField = {
   name: string;
 };
 
+export type UserForLogin= {
+  id?: string
+  name?: string | null
+  email?: string | null
+  password?: string | null 
+    }
+
 export type InvoiceForm = {
   id: string;
   customer_id: string;
