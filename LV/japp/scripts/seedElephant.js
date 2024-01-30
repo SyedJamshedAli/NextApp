@@ -443,7 +443,8 @@ async function main() {
   //const client = await db.connect();
   //const client=pool;
   const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
+    connectionString: 
+      process.env.POSTGRES_URL,
       
   });
   pool.connect((err, client, done) => {
