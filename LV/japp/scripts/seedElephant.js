@@ -443,8 +443,8 @@ async function main() {
   //const client = await db.connect();
   //const client=pool;
   const pool = new Pool({
-    connectionString:
-      'postgres://ucitvxpv:4Yq5O7o44_T7MMp-UrexoaE3GLWzo3gY@manny.db.elephantsql.com/ucitvxpv',
+    connectionString: process.env.POSTGRES_URL,
+      
   });
   pool.connect((err, client, done) => {
     if (err) {
